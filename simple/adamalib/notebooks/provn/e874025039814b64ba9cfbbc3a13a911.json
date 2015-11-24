@@ -1,0 +1,153 @@
+{
+    "actedOnBehalfOf": {
+        "_:id1": {
+            "prov:delegate": "aip:walter_moreira", 
+            "prov:responsible": "aip:university_of_texas"
+        }, 
+        "_:id2": {
+            "prov:delegate": "aip:matthew_vaughn", 
+            "prov:responsible": "aip:university_of_texas"
+        }, 
+        "_:id6": {
+            "prov:delegate": "aip:walter_moreira", 
+            "prov:responsible": "aip:the_university_of_texas_at_austin"
+        }, 
+        "_:id8": {
+            "prov:delegate": "aip:blake_meyers", 
+            "prov:responsible": "aip:university_of_delaware"
+        }
+    }, 
+    "agent": {
+        "aip:adama_platform": {
+            "dcterms:description": "Araport Data And Microservices API", 
+            "dcterms:identifier": "https://api.araport.org/community/v0.3/", 
+            "dcterms:language": "en-US", 
+            "dcterms:title": "ADAMA", 
+            "dcterms:updated": "2015-04-17T09:44:56"
+        }, 
+        "aip:blake_meyers": {
+            "foaf:givenName": "Blake Meyers", 
+            "foaf:mbox": "meyers@dbi.udel.edu", 
+            "prov:type": {
+                "$": "prov:Person", 
+                "type": "prov:QualifiedName"
+            }
+        }, 
+        "aip:demo.smallrna_v2": {
+            "dcterms:description": "List of gene/IGR-specific reads and expression data", 
+            "dcterms:identifier": "http://adama-dev.cloudapp.net/community/v0.3/demo/smallrna_v2", 
+            "dcterms:language": "en-US", 
+            "dcterms:source": "https://github.com/waltermoreira/adama-example.git", 
+            "dcterms:title": "Smallrna"
+        }, 
+        "aip:matthew_vaughn": {
+            "foaf:givenName": "Matthew Vaughn", 
+            "foaf:mbox": "<mailto:vaughn@tacc.utexas.edu>", 
+            "prov:type": {
+                "$": "prov:Person", 
+                "type": "prov:QualifiedName"
+            }
+        }, 
+        "aip:the_university_of_texas_at_austin": {
+            "dcterms:identifier": "http://utexas.edu", 
+            "foaf:givenName": "The University of Texas at Austin", 
+            "prov:type": {
+                "$": "prov:Organization", 
+                "type": "prov:QualifiedName"
+            }
+        }, 
+        "aip:university_of_delaware": {
+            "dcterms:identifier": "http://www.udel.edu", 
+            "foaf:givenName": "University of Delaware", 
+            "prov:type": {
+                "$": "prov:Organization", 
+                "type": "prov:QualifiedName"
+            }
+        }, 
+        "aip:university_of_texas": {
+            "dcterms:identifier": "http://utexas.edu", 
+            "foaf:givenName": "The University of Texas at Austin", 
+            "prov:type": {
+                "$": "prov:Organization", 
+                "type": "prov:QualifiedName"
+            }
+        }, 
+        "aip:walter_moreira": [
+            {
+                "foaf:givenName": "Walter Moreira", 
+                "foaf:mbox": "<mailto:wmoreira@tacc.utexas.edu>", 
+                "prov:type": {
+                    "$": "prov:Person", 
+                    "type": "prov:QualifiedName"
+                }
+            }, 
+            {
+                "foaf:givenName": "Walter Moreira", 
+                "foaf:mbox": "<mailto:wmoreira@tacc.utexas.edu>", 
+                "prov:type": {
+                    "$": "prov:Person", 
+                    "type": "prov:QualifiedName"
+                }
+            }
+        ]
+    }, 
+    "entity": {
+        "aip:adama_response": {}, 
+        "aip:datasource_0": {
+            "dcterms:description": "Arabidopsis Small RNA JSON Web Services at Meyers Lab", 
+            "dcterms:identifier": "https://mpss.udel.edu/dbs/index.php?SITE=at_sRNA", 
+            "dcterms:language": "en-us", 
+            "dcterms:license": "non-commercial", 
+            "dcterms:title": "Small RNA database", 
+            "dcterms:updated": "2013-06-16T00:00:00"
+        }
+    }, 
+    "prefix": {
+        "aip": "https://araport.org/provenance/", 
+        "dcterms": "http://purl.org/dc/terms/", 
+        "foaf": "http://xmlns.com/foaf/0.1/"
+    }, 
+    "used": {
+        "_:id10": {
+            "prov:activity": "aip:demo.smallrna_v2", 
+            "prov:entity": "aip:datasource_0", 
+            "prov:time": "2015-05-14T20:44:36.896156"
+        }, 
+        "_:id12": {
+            "prov:activity": "aip:query", 
+            "prov:entity": "aip:demo.smallrna_v2", 
+            "prov:time": "2015-05-14T20:44:36.896453"
+        }, 
+        "_:id5": {
+            "prov:activity": "aip:demo.smallrna_v2", 
+            "prov:entity": "aip:adama_platform", 
+            "prov:time": "2015-05-14T20:44:36.894812"
+        }
+    }, 
+    "wasAttributedTo": {
+        "_:id9": {
+            "prov:agent": "aip:blake_meyers", 
+            "prov:entity": "aip:datasource_0"
+        }
+    }, 
+    "wasGeneratedBy": {
+        "_:id11": {
+            "prov:activity": "aip:query", 
+            "prov:entity": "aip:adama_response", 
+            "prov:time": "2015-05-14T20:44:36.896325"
+        }, 
+        "_:id3": {
+            "prov:activity": "aip:walter_moreira", 
+            "prov:entity": "aip:adama_platform"
+        }, 
+        "_:id4": {
+            "prov:activity": "aip:matthew_vaughn", 
+            "prov:entity": "aip:adama_platform"
+        }, 
+        "_:id7": {
+            "prov:activity": "aip:walter_moreira", 
+            "prov:entity": "aip:demo.smallrna_v2", 
+            "prov:time": "2015-05-14T20:44:36.895347"
+        }
+    }
+}
