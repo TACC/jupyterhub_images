@@ -15,8 +15,7 @@ ENV USER jupyter
 
 WORKDIR /home/jupyter/
 
-# IPython introductions
-#RUN cp -r /srv/ipython/examples /home/jupyter/examples
+RUN pip2 install -e git+https://github.com/TACC/agavepy.git#egg=agavepy
 
 EXPOSE 8888
 
