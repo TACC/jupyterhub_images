@@ -1,6 +1,9 @@
 FROM jupyter/pyspark-notebook
 MAINTAINER Joe Stubbs <jstubbs@tacc.utexas.edu>
 
+RUN apt-get update
+RUN apt-get install -y libxrender1
+
 # fetch juptyerhub-singleuser entrypoint
 ADD https://raw.githubusercontent.com/jupyter/jupyterhub/master/jupyterhub/singleuser.py /usr/local/bin/jupyterhub-singleuser
 RUN chmod 755 /usr/local/bin/jupyterhub-singleuser
