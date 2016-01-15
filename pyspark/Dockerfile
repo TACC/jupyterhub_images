@@ -1,6 +1,9 @@
 FROM jupyter/pyspark-notebook
 MAINTAINER Joe Stubbs <jstubbs@tacc.utexas.edu>
 
+RUN apt-get update
+RUN apt-get install -y libxrender1
+
 # fetch juptyerhub-singleuser entrypoint
 ADD https://raw.githubusercontent.com/jupyter/jupyterhub/master/jupyterhub/singleuser.py /usr/local/bin/jupyterhub-singleuser
 RUN chmod 755 /usr/local/bin/jupyterhub-singleuser
@@ -15,9 +18,11 @@ ENV USER jupyter
 
 WORKDIR /home/jupyter/
 
-RUN pip2 install -e git+https://github.com/TACC/agavepy.git#egg=agavepy
+USER root
+RUN /opt/conda/envs/python2/bin/pip install -e git+https://github.com/TACC/agavepy.git#egg=agavepy
 
 EXPOSE 8888
 
+USER jupyter
 ADD singleuser.sh /srv/singleuser/singleuser.sh
 CMD ["sh", "/srv/singleuser/singleuser.sh"]
