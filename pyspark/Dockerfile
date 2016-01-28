@@ -1,3 +1,5 @@
+# Image: jstubbs/jupyter-pyspark
+
 FROM jupyter/pyspark-notebook
 MAINTAINER Joe Stubbs <jstubbs@tacc.utexas.edu>
 
@@ -22,6 +24,15 @@ USER root
 RUN /opt/conda/envs/python2/bin/pip install -e git+https://github.com/TACC/agavepy.git#egg=agavepy
 
 EXPOSE 8888
+
+USER jupyter
+RUN mkdir -p /home/jupyter/examples
+ADD cosine_distance.svg /home/jupyter/examples/cosine_distance.svg
+ADD agavepy_example.ipynb /home/jupyter/examples/agavepy_example.ipynb
+ADD pyspark_genome_example.ipynb /home/jupyter/examples/pyspark_genome_example.ipynb
+
+USER root
+RUN chown -R jupyter:jupyter /home/jupyter/examples
 
 USER jupyter
 ADD singleuser.sh /srv/singleuser/singleuser.sh
