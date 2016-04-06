@@ -7,7 +7,7 @@ RUN apt-get update
 RUN apt-get install -y libxrender1
 
 # fetch juptyerhub-singleuser entrypoint
-ADD https://raw.githubusercontent.com/jupyter/jupyterhub/master/jupyterhub/singleuser.py /usr/local/bin/jupyterhub-singleuser
+ADD jupyterhub-singleuser.py /usr/local/bin/jupyterhub-singleuser
 RUN chmod 755 /usr/local/bin/jupyterhub-singleuser
 
 # jupyter is our user
@@ -20,8 +20,13 @@ ENV USER jupyter
 
 WORKDIR /home/jupyter/
 
+# install agavepy
 USER root
 RUN /opt/conda/envs/python2/bin/pip install -e git+https://github.com/TACC/agavepy.git#egg=agavepy
+
+# install bash kernel
+RUN pip install bash_kernel
+RUN python -m bash_kernel.install
 
 EXPOSE 8888
 
