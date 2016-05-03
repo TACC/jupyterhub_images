@@ -3,6 +3,7 @@
 FROM jupyter/pyspark-notebook
 MAINTAINER Joe Stubbs <jstubbs@tacc.utexas.edu>
 
+USER root
 RUN apt-get update
 RUN apt-get install -y libxrender1
 
@@ -43,3 +44,23 @@ RUN chown -R jupyter:G-816877 /home/jupyter/examples
 USER jupyter
 ADD singleuser.sh /srv/singleuser/singleuser.sh
 CMD ["sh", "/srv/singleuser/singleuser.sh"]
+
+#steve's modifications
+USER root
+WORKDIR /root
+RUN apt-get -y install subversion emacs make tcl8.5 tcl8.5-dev gcc g++ gfortran mpich2 ssh
+
+#RUN pip install matlab_kernel
+#RUN python -m matlab_kernel.install
+COPY ./OpenSees-deb /usr/local/bin/OpenSees
+RUN chmod 755 /usr/local/bin/OpenSees
+RUN apt-get install -y r-base r-recommended
+RUN conda install -c r r-essentials
+#COPY matlab_R2016a_glnxa64.zip /root/matlab_R2016a_glnxa64.zip
+#RUN unzip matlab_R2016a_glnxa64.zip
+#COPY installer_input.txt /root/installer_input.txt
+#RUN /root/install
+USER jupyter
+WORKDIR /home/jupyter
+
+
