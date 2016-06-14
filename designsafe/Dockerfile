@@ -78,12 +78,14 @@ RUN apt-get install -y python-pip python2.7-dev libxext-dev python-qt4 qt4-dev-t
 RUN pip install SIP 
 #RUN pip install PyQt
 #RUN apt-get install -y python-obspy python3-obspy
-RUN apt-get install -y libxml2
-RUN apt-get install -y libxml2-dev libxslt1-dev
-RUN pip install lxml
+RUN apt-get install -y libxml2 libxml2-dev libxslt1-dev python-lxml python-matplotlib python-numpy python-scipy python-numexpr
+#RUN pip install lxml
 RUN pip install ObsPy
+#RUN pip2 install lxml 
+RUN pip2 install ObsPy
 RUN echo "allowed_users=anybody" > /etc/X11/Xwrapper.config
 USER jupyter
 RUN startx &
 RUN echo "Welcome to the DesignSafe-ci JupyterHub terminal. Your DesignSafe-ci home directory is in 'mydata.' Any files you wish to save between sessions must be within that directory. OpenSees is availavble to run interactively here. " > /home/jupyter/README.txt
 COPY rbnb.jar /home/jupyter/util/rbnb.jar
+
