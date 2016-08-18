@@ -1,0 +1,9 @@
+jupyterlab:
+#  build: ./jupyterlab
+  image: taccsciapps/jupyterlab
+  ports:
+    - "8888:8888"
+  volumes:
+    - ./data:/opt/app/data
+    - $HOME/.agpy:/etc/.agpy
+  entrypoint: sh -c 'jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=/opt/app/data'
