@@ -83,6 +83,7 @@ RUN apt-get install -y libxml2 libxml2-dev libxslt1-dev python-lxml python-matpl
 RUN pip install ObsPy
 #RUN pip2 install lxml 
 RUN pip2 install ObsPy
+RUN /opt/conda/envs/python2/bin/pip install ObsPy
 RUN echo "allowed_users=anybody" > /etc/X11/Xwrapper.config
 USER jupyter
 RUN startx &
