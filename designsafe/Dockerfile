@@ -51,7 +51,7 @@ RUN chmod 755 /usr/local/bin/OpenSees
 
 RUN pip install SIP
 #RUN apt-get install -y libxml2 libxml2-dev libxslt1-dev python-lxml python-numexpr
-RUN apt-get install -y libxml2 libxml2-dev libxslt1-dev python-lxml python-matplotlib python-numpy python-scipy python-numexpr
+RUN apt-get install -y libxml2 libxml2-dev libxslt1-dev python-lxml python-matplotlib python-numpy python-scipy python-numexpr pyqt4-dev-tools
 RUN pip install ObsPy
 RUN echo "allowed_users=anybody" > /etc/X11/Xwrapper.config
 
@@ -62,7 +62,7 @@ RUN echo "allowed_users=anybody" > /etc/X11/Xwrapper.config
 USER root 
 # install agavepy
 
-RUN pip2 install agavepy
+RUN pip2 install agavepy ObsPy
 
 # install CLI
 USER jupyter
@@ -79,6 +79,7 @@ ADD opensees-submit-example.ipynb /home/jupyter/util/opensees-submit-example.ipy
 # startx and README
 RUN startx &
 RUN echo "Welcome to the DesignSafe-ci JupyterHub terminal. Your DesignSafe-ci home directory is in 'mydata.' Any files you wish to save between sessions must be within that directory. OpenSees is availavble to run interactively here. " > /home/jupyter/README.txt
+RUN echo "0949f6ce05b1" > /home/jupyter/.imageID
 COPY rbnb.jar /home/jupyter/util/rbnb.jar
 
 CMD ["sh", "/usr/local/bin/start-singleuser.sh"]
