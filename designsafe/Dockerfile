@@ -35,11 +35,6 @@ ENV HOME /home/jupyter
 ENV SHELL /bin/bash
 ENV USER jupyter
 
-# python2 virtualenv kernel for users to use
-#RUN mkdir -p /home/jupyter/virtualenvs
-#RUN cd /home/jupyter/virtualenvs; virtualenv -p /usr/bin/python2 py2
-#RUN /bin/bash -c "source /home/jupyter/virtualenvs/py2/bin/activate && pip install ipykernel"
-
 
 USER root
 WORKDIR /root
@@ -106,11 +101,6 @@ COPY rbnb.jar /home/jupyter/util/rbnb.jar
 # create the python3 kernel and virtualenv
 RUN mkdir -p /opt/conda/share/jupyter/kernels/python3_venv
 ADD py3_venv_kernel.json /opt/conda/share/jupyter/kernels/python3_venv/kernel.json
-
-# set the LD_LIBRARY_PATH so that the python3 virtualenv will build properly.
-ENV LD_LIBRARY_PATH=/opt/conda/lib
-#RUN cd /home/jupyter/virtualenvs; virtualenv -p /opt/conda/bin/python3 py3
-#RUN /bin/bash -c "source /home/jupyter/virtualenvs/py3/bin/activate && pip install ipykernel"
 
 # custom entrypoint to bootstrap the image
 USER root
