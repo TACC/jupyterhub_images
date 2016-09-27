@@ -72,7 +72,7 @@ RUN chmod 755 /usr/local/bin/OpenSees
 
 RUN pip install SIP
 #RUN apt-get install -y libxml2 libxml2-dev libxslt1-dev python-lxml python-numexpr
-RUN apt-get install -y libxml2 libxml2-dev libxslt1-dev python-lxml python-matplotlib python-numpy python-scipy python-numexpr pyqt4-dev-tools
+RUN apt-get install -y libxml2 libxml2-dev libxslt1-dev python-lxml python-matplotlib python-numpy python-scipy python-numexpr python-qt4 pyqt4-dev-tools python3-pyqt4
 RUN pip install ObsPy
 RUN echo "allowed_users=anybody" > /etc/X11/Xwrapper.config
 
