@@ -1,4 +1,7 @@
 # Image: taccsciapps/jupyteruser-ds
+# This image is built to run on the JupyterHub. In order to run it locally, you need to provide a config file and a
+# separate command, e.g.
+# docker run --rm -p 8889:8888 -v jupyter-notebook-localconf.py:/home/jupyter/.jupyter/jupyter_notebook_config.py taccsciapps/jupyteruser-ds start-notebook.sh
 
 FROM jupyter/scipy-notebook
 MAINTAINER Joe Stubbs <jstubbs@tacc.utexas.edu>
@@ -6,6 +9,7 @@ MAINTAINER Joe Stubbs <jstubbs@tacc.utexas.edu>
 USER root
 RUN apt-get update
 RUN apt-get install -y libxrender1
+RUN easy_install virtualenv
 
 # ------------------
 # additional kernels
@@ -31,11 +35,28 @@ ENV HOME /home/jupyter
 ENV SHELL /bin/bash
 ENV USER jupyter
 
+# python2 virtualenv kernel for users to use
+#RUN mkdir -p /home/jupyter/virtualenvs
+#RUN cd /home/jupyter/virtualenvs; virtualenv -p /usr/bin/python2 py2
+#RUN /bin/bash -c "source /home/jupyter/virtualenvs/py2/bin/activate && pip install ipykernel"
+
+
 USER root
 WORKDIR /root
 RUN apt-get -y install subversion emacs make tcl8.5 tcl8.5-dev gcc g++ gfortran mpich2 ssh curl gnuplot
 
+RUN mkdir -p /opt/conda/share/jupyter/kernels/python2_venv
+ADD py2_venv_kernel.json /opt/conda/share/jupyter/kernels/python2_venv/kernel.json
+
 WORKDIR /home/jupyter/
+
+# allow users to add kernels
+RUN chmod 777 /opt/conda/share/jupyter/kernels
+
+
+# -------
+# DS Apps
+# -------
 
 # opensees
 COPY ./OpenSees-deb /usr/local/bin/OpenSees
@@ -82,5 +103,20 @@ RUN echo "Welcome to the DesignSafe-ci JupyterHub terminal. Your DesignSafe-ci h
 RUN echo "0949f6ce05b1" > /home/jupyter/.imageID
 COPY rbnb.jar /home/jupyter/util/rbnb.jar
 
-CMD ["sh", "/usr/local/bin/start-singleuser.sh"]
+# create the python3 kernel and virtualenv
+RUN mkdir -p /opt/conda/share/jupyter/kernels/python3_venv
+ADD py3_venv_kernel.json /opt/conda/share/jupyter/kernels/python3_venv/kernel.json
 
+# set the LD_LIBRARY_PATH so that the python3 virtualenv will build properly.
+ENV LD_LIBRARY_PATH=/opt/conda/lib
+#RUN cd /home/jupyter/virtualenvs; virtualenv -p /opt/conda/bin/python3 py3
+#RUN /bin/bash -c "source /home/jupyter/virtualenvs/py3/bin/activate && pip install ipykernel"
+
+# custom entrypoint to bootstrap the image
+USER root
+ADD entry.sh /entry.sh
+RUN chmod +x /entry.sh
+
+CMD ["sh", "/entry.sh"]
+
+USER jupyter
