@@ -1,0 +1,6 @@
+{
+ "argv": [ "/home/jupyter/mydata/virtualenvs/py3/bin/python", "-m", "ipykernel",
+          "-f", "{connection_file}"],
+ "display_name": "python3_virtualenv",
+ "language": "python"
+}
