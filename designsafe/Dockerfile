@@ -24,6 +24,7 @@ RUN pip install metakernel
 # R kernel
 RUN apt-get install -y r-base r-recommended
 RUN conda install -c r r-essentials
+RUN conda install --quiet -c r "r-base=3.3.1 1"
 
 
 # add jupyter user mapped to special uid
