@@ -54,7 +54,7 @@ RUN chmod 777 /opt/conda/share/jupyter/kernels
 # -------
 
 # opensees
-COPY ./OpenSees-deb /usr/local/bin/OpenSees
+COPY ./OpenSees-deb-2.5.0.6482 /usr/local/bin/OpenSees
 RUN chmod 755 /usr/local/bin/OpenSees
 
 # matlab
