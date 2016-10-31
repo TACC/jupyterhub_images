@@ -41,8 +41,9 @@ USER root
 WORKDIR /root
 RUN apt-get -y install subversion emacs make tcl8.5 tcl8.5-dev gcc g++ gfortran mpich2 ssh curl gnuplot
 
-RUN mkdir -p /opt/conda/share/jupyter/kernels/python2_venv
-ADD py2_venv_kernel.json /opt/conda/share/jupyter/kernels/python2_venv/kernel.json
+
+# RUN mkdir -p /opt/conda/share/jupyter/kernels/python2_venv
+# ADD py2_venv_kernel.json /opt/conda/share/jupyter/kernels/python2_venv/kernel.json
 
 WORKDIR /home/jupyter/
 
@@ -100,8 +101,8 @@ RUN echo "0949f6ce05b1" > /home/jupyter/.imageID
 COPY rbnb.jar /home/jupyter/util/rbnb.jar
 
 # create the python3 kernel and virtualenv
-RUN mkdir -p /opt/conda/share/jupyter/kernels/python3_venv
-ADD py3_venv_kernel.json /opt/conda/share/jupyter/kernels/python3_venv/kernel.json
+# RUN mkdir -p /opt/conda/share/jupyter/kernels/python3_venv
+# ADD py3_venv_kernel.json /opt/conda/share/jupyter/kernels/python3_venv/kernel.json
 
 # custom entrypoint to bootstrap the image
 USER root
