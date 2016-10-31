@@ -5,7 +5,7 @@ FROM jupyter/pyspark-notebook
 MAINTAINER John Fonner <jfonner@tacc.utexas.edu>
 
 USER root
-RUN apt-get update && apt-get install -y libxrender1 curl bsdmainutils jq
+RUN apt-get update && apt-get install -y libxrender1 curl bsdmainutils jq node npm
 
 # fetch juptyerhub-singleuser entrypoint
 ADD jupyterhub-singleuser.py /usr/local/bin/jupyterhub-singleuser
@@ -42,8 +42,10 @@ ADD agavepy_example.ipynb /home/jupyter/examples/agavepy_example.ipynb
 ADD pyspark_genome_example.ipynb /home/jupyter/examples/pyspark_genome_example.ipynb
 
 USER root
-RUN chown -R jupyter:jupyter /home/jupyter/examples
-
+RUN chown -R jupyter:jupyter /home/jupyter/examples && \
+    ln -s /usr/bin/nodejs /usr/bin/node && \
+    export PATH=/usr/bin:$PATH
+    
 USER jupyter
 ADD singleuser.sh /srv/singleuser/singleuser.sh
 CMD ["sh", "/srv/singleuser/singleuser.sh"]
