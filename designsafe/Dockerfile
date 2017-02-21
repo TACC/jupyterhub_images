@@ -43,7 +43,7 @@ RUN apt-get -y install subversion emacs make tcl8.5 tcl8.5-dev gcc g++ gfortran 
 
 
 # RUN mkdir -p /opt/conda/share/jupyter/kernels/python2_venv
-# ADD py2_venv_kernel.json /opt/conda/share/jupyter/kernels/python2_venv/kernel.json
+ADD py2_venv_kernel.json /opt/conda/share/jupyter/kernels/python2_venv/kernel.json
 
 WORKDIR /home/jupyter/
 
@@ -69,6 +69,7 @@ RUN chmod 755 /usr/local/bin/OpenSees
 
 RUN pip install SIP
 #RUN apt-get install -y libxml2 libxml2-dev libxslt1-dev python-lxml python-numexpr
+RUN apt-get update
 RUN apt-get install -y libxml2 libxml2-dev libxslt1-dev python-lxml python-matplotlib python-numpy python-scipy python-numexpr python-qt4 pyqt4-dev-tools python3-pyqt4
 RUN pip install ObsPy
 RUN echo "allowed_users=anybody" > /etc/X11/Xwrapper.config
@@ -80,7 +81,17 @@ RUN echo "allowed_users=anybody" > /etc/X11/Xwrapper.config
 USER root 
 # install agavepy
 
-RUN pip2 install agavepy ObsPy
+RUN pip2 install agavepy ObsPy plotly
+
+# -----------
+# GeoClaw / Clawpack
+# -----------
+RUN pip install --src=/home/jupyter/util/ --user -e git+https://github.com/clawpack/clawpack.git@v5.4.0#egg=clawpack-v5.4.0
+WORKDIR /home/jupyter/util/clawpack-v5.4.0
+RUN python setup.py install
+USER jupyter
+ENV CLAW=/home/jupyter/util/clawpack-v5.4.0
+ENV FC=gfortran
 
 # install CLI
 USER jupyter
@@ -101,14 +112,22 @@ RUN echo "0949f6ce05b1" > /home/jupyter/.imageID
 COPY rbnb.jar /home/jupyter/util/rbnb.jar
 
 # create the python3 kernel and virtualenv
-# RUN mkdir -p /opt/conda/share/jupyter/kernels/python3_venv
-# ADD py3_venv_kernel.json /opt/conda/share/jupyter/kernels/python3_venv/kernel.json
+RUN mkdir -p /opt/conda/share/jupyter/kernels/python3_venv
+ADD py3_venv_kernel.json /opt/conda/share/jupyter/kernels/python3_venv/kernel.json
 
 # custom entrypoint to bootstrap the image
 USER root
+RUN rm -rf /opt/conda/share/jupyter/kernels/python2_venv
+RUN rm -rf /opt/conda/share/jupyter/kernels/python3_venv
 ADD entry.sh /entry.sh
 RUN chmod +x /entry.sh
 
 CMD ["sh", "/entry.sh"]
 
+ADD start-singleuser.sh /usr/local/bin/start-singleuser.sh
+RUN chmod 0775 /usr/local/bin/start-singleuser.sh
+
+RUN chown -R jupyter: /home/jupyter/util
+
 USER jupyter
+
